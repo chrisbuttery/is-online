@@ -1,4 +1,4 @@
-# in-online
+# is-online
 
 Check if you're online before working your magic.
 
