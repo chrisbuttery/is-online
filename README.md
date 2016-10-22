@@ -1,6 +1,6 @@
-# in-online
+# is-online
 
-Check if you're online before working your magic.
+An `elm` package to check if you're online before working your magic.
 
 Using the path to popular website's favicon.ico, this package will try and load an image and update it's `online` status when successful.
 
