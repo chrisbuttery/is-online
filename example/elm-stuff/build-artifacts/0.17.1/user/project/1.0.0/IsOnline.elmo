@@ -83,8 +83,16 @@ var _user$project$IsOnline$setRandomHost = A2(
 		_elm_lang$core$List$length(_user$project$IsOnline$hosts) - 1));
 var _user$project$IsOnline$Onload = {ctor: 'Onload'};
 var _user$project$IsOnline$view = function (model) {
-	var _p3 = model.host;
-	if (_p3.ctor === 'Nothing') {
+	var timestamp = function () {
+		var _p3 = model.now;
+		if (_p3.ctor === 'Nothing') {
+			return '';
+		} else {
+			return _elm_lang$core$Basics$toString(_p3._0);
+		}
+	}();
+	var _p4 = model.host;
+	if (_p4.ctor === 'Nothing') {
 		return _elm_lang$html$Html$text('');
 	} else {
 		return A2(
@@ -102,11 +110,8 @@ var _user$project$IsOnline$view = function (model) {
 						'http://',
 						A2(
 							_elm_lang$core$Basics_ops['++'],
-							_p3._0,
-							A2(
-								_elm_lang$core$Basics_ops['++'],
-								'/favicon.ico?',
-								_elm_lang$core$Basics$toString(model.now))))),
+							_p4._0,
+							A2(_elm_lang$core$Basics_ops['++'], '/favicon.ico?', timestamp)))),
 					_user$project$IsOnline$onLoad(_user$project$IsOnline$Onload)
 				]),
 			_elm_lang$core$Native_List.fromArray(
