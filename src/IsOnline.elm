@@ -105,21 +105,30 @@ update msg model =
             ( { model | now = time }, Cmd.none )
 
 
-{-| If we have the `host` - we have the `time` - so render an image
+{-| Check we have the `host` & `time` & render an image
 -}
 view : Model -> Html Msg
 view model =
-    case model.host of
-        Nothing ->
-            Html.text ""
+    let
+        timestamp =
+            case model.now of
+                Nothing ->
+                    ""
 
-        Just host ->
-            img
-                [ style [ ( "display", "none" ) ]
-                , src ("http://" ++ host ++ "/favicon.ico?" ++ (toString model.now))
-                , onLoad Onload
-                ]
-                []
+                Just time ->
+                    toString time
+    in
+        case model.host of
+            Nothing ->
+                Html.text ""
+
+            Just host ->
+                img
+                    [ style [ ( "display", "none" ) ]
+                    , src ("http://" ++ host ++ "/favicon.ico?" ++ timestamp)
+                    , onLoad Onload
+                    ]
+                    []
 
 
 {-| Capture image load event.
