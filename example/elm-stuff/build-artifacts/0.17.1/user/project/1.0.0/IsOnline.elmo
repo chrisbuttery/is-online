@@ -1,0 +1,115 @@
+var _user$project$IsOnline$hosts = _elm_lang$core$Native_List.fromArray(
+	['www.google.com', 'www.cloudflare.com', 'www.baidu.com', 'www.yandex.ru']);
+var _user$project$IsOnline$onLoad = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'load',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _user$project$IsOnline$Model = F3(
+	function (a, b, c) {
+		return {online: a, host: b, now: c};
+	});
+var _user$project$IsOnline$Offline = {ctor: 'Offline'};
+var _user$project$IsOnline$initialModel = {online: _user$project$IsOnline$Offline, host: _elm_lang$core$Maybe$Nothing, now: _elm_lang$core$Maybe$Nothing};
+var _user$project$IsOnline$init = {ctor: '_Tuple2', _0: _user$project$IsOnline$initialModel, _1: _elm_lang$core$Platform_Cmd$none};
+var _user$project$IsOnline$Online = function (a) {
+	return {ctor: 'Online', _0: a};
+};
+var _user$project$IsOnline$SetTime = function (a) {
+	return {ctor: 'SetTime', _0: a};
+};
+var _user$project$IsOnline$getTime = A3(
+	_elm_lang$core$Task$perform,
+	_elm_lang$core$Basics$always(
+		_user$project$IsOnline$SetTime(_elm_lang$core$Maybe$Nothing)),
+	function (_p0) {
+		return _user$project$IsOnline$SetTime(
+			_elm_lang$core$Maybe$Just(_p0));
+	},
+	_elm_lang$core$Time$now);
+var _user$project$IsOnline$update = F2(
+	function (msg, model) {
+		var _p1 = msg;
+		switch (_p1.ctor) {
+			case 'Onload':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							online: _user$project$IsOnline$Online(true)
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'SetHost':
+				var arr = _elm_lang$core$Array$fromList(_user$project$IsOnline$hosts);
+				var host = function () {
+					var _p2 = A2(_elm_lang$core$Array$get, _p1._0, arr);
+					if (_p2.ctor === 'Nothing') {
+						return '';
+					} else {
+						return _p2._0;
+					}
+				}();
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							host: _elm_lang$core$Maybe$Just(host)
+						}),
+					_1: _user$project$IsOnline$getTime
+				};
+			default:
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{now: _p1._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+		}
+	});
+var _user$project$IsOnline$SetHost = function (a) {
+	return {ctor: 'SetHost', _0: a};
+};
+var _user$project$IsOnline$setRandomHost = A2(
+	_elm_lang$core$Random$generate,
+	_user$project$IsOnline$SetHost,
+	A2(
+		_elm_lang$core$Random$int,
+		0,
+		_elm_lang$core$List$length(_user$project$IsOnline$hosts) - 1));
+var _user$project$IsOnline$Onload = {ctor: 'Onload'};
+var _user$project$IsOnline$view = function (model) {
+	var _p3 = model.host;
+	if (_p3.ctor === 'Nothing') {
+		return _elm_lang$html$Html$text('');
+	} else {
+		return A2(
+			_elm_lang$html$Html$img,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$style(
+					_elm_lang$core$Native_List.fromArray(
+						[
+							{ctor: '_Tuple2', _0: 'display', _1: 'none'}
+						])),
+					_elm_lang$html$Html_Attributes$src(
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						'http://',
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							_p3._0,
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								'/favicon.ico?',
+								_elm_lang$core$Basics$toString(model.now))))),
+					_user$project$IsOnline$onLoad(_user$project$IsOnline$Onload)
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[]));
+	}
+};
