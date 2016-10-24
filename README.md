@@ -17,3 +17,8 @@ Inspired by [sindresorhus is-online](https://github.com/sindresorhus/is-online).
 ### Building example
 
 Install [Create Elm App](https://github.com/halfzebra/create-elm-app) and run `elm-app build` or `elm-app start` inside of `/example`.
+
+> [chrisbuttery.com](http://chrisbuttery.com) &nbsp;&middot;&nbsp;
+> GitHub [@chrisbuttery](https://github.com/chrisbuttery) &nbsp;&middot;&nbsp;
+> Twitter [@buttahz](https://twitter.com/buttahz) &nbsp;&middot;&nbsp;
+> elm-lang slack [@butters](http://elmlang.herokuapp.com/)
